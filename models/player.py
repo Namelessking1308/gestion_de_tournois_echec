@@ -103,10 +103,10 @@ class Player():
 
     def display(self):
         return (f"{self.__username}\n"
-                f"{self.__email}\n"
-                f"{self.__date_of_birth}\n"
-                f"{self.__gender}\n"
-                f"{self.__registration_date}\n"
-                f"{self.__elo}")
+                f"\n{self.__email}\n"
+                f"\n{self.__date_of_birth}\n"
+                f"\n{self.__gender}\n"
+                f"\n{self.__registration_date}\n"
+                f"\n{self.__elo}")
 
     #endregion

@@ -25,7 +25,7 @@ class Tournament:
 
     # region Attributs
 
-    def __init__(self, name, location, number_of_players, elo, categories : Categories, status : Status, type : Type, registration_deadline):
+    def __init__(self, name, location, number_of_players, elo, categories : Categories, type : Type, registration_deadline):
         self._name = name
         self._location = location
         self.__number_of_players = number_of_players
@@ -35,6 +35,8 @@ class Tournament:
         self.__current_round_number = 0
         self.__type = type
         self.__registration_deadline = registration_deadline
+        self.__tournament_list = []
+        self.__all_tournament = []
 
     #endregion
 
@@ -64,7 +66,7 @@ class Tournament:
     
     @elo.setter
     def elo(self, value):
-        if value < 1200 or value > 3000:
+        if value < 0 or value > 3000:
             raise ValueError("The ELO must be bewteen 1200 and 3000")
         self.__elo = value
 
@@ -120,11 +122,20 @@ class Tournament:
             raise ValueError("Invalid registration deadline (DD/MM/YYYY expected)")
         self.__registration_deadline = value
 
+    @property
+    def tournament_list(self):
+            return self.__tournament_list
+
+    @property
+    def all_tournament(self):
+        return self.__all_tournament
+    
+
     #endregion
 
     #region Méthodes
 
-    def display(self):
+    def display_tournament(self):
         if self.__status is not Status.COMPLETED:
             return (f"--TOURNAMENT--\n"
                     f"\n{self._name}\n"
@@ -137,8 +148,18 @@ class Tournament:
                     f"\n--ELO--\n"
                     f"\nMin 1200 MAX {self.__elo}\n"
                     f"\n--STATUS--\n"
-                    f"\n{self.__status}")
+                    f"\n{self.__status}\n"
+                    f"\n--Last date of registration--\n"
+                    f"\n{self.__registration_deadline}\n"
+                    f"\n--Current round--\n"
+                    f"\n{self.__current_round_number}")
 
+    def remove_tournament(self):
+        if self.status == Status.WAITING.value:
+            self.all_tournament.remove(self)
+            return f"The tournament {self.name} has been successfully deleted !"
+        else:
+            return f"A tournament can only be deleted if the status is Waiting..."
 
     def is_registration_valid(self, player):
         registration_date = datetime.strptime(player.registration_date, "%d/%m/%Y")
@@ -152,6 +173,30 @@ class Tournament:
             print("Registration is valide !")
         else:
             print("Registration is too late...")
+
+
+# Suite de l'Exo ICI
+    def add_player(self, player):
+        if not hasattr(self, 'tournament_list'):
+            self.__tournament_list = []
+
+        if (len(self.tournament_list) >= self.number_of_players) and (Status.PROGRESS or Status.COMPLETED):
+            return f"Maximum capacity reached ({self.number_of_players})"
+        elif player in self.__tournament_list:
+            return f"{player.username} is already in the tournament"
+        elif 
+
+        self.tournament_list.append(player)
+
+        return f"{player.username} added to {self.name}"
+
+    def add_tournament(self):
+        if not hasattr(self, 'all_tournament'):
+            self.__all_tournament = []
+
+        self.all_tournament.append(self)
+
+        return f"The tournament {self.name} has been added to the list of tournament !"
 
 
     #endregion

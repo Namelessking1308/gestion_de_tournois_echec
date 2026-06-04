@@ -13,24 +13,34 @@ def main():
 
    tournament1 = Tournament("Mondial", 
                             "Spain", 
-                            "2", 
+                            2, 
                             1800, 
-                            Categories.JUNIOR.value, 
-                            Status.WAITING.value, 
+                            Categories.JUNIOR.value,
                             Type.MIXTE.value, 
                             "17/02/2026"
 )
 
-   # print(player1.display())
+   print(player1.display())
+
+   print()
+
+   print(tournament1.add_player(player1))
 
    print()
 
    tournament1.check_registration(player1)
 
+   print()
+
+   print(tournament1.add_tournament())
 
    print()
 
-   # print(tournament1.display())
+   print(tournament1.remove_tournament())
+
+   print()
+
+   print(tournament1.display_tournament())
 
 
 
