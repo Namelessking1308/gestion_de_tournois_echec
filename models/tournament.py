@@ -1,5 +1,7 @@
 from enum import Enum
 from datetime import datetime
+# from .player import Player
+
     #region Enum
 
 class Categories(Enum):
@@ -19,7 +21,7 @@ class Status(Enum):
 
     #endregion
 
-class Tournament(Categories, Type, Status):
+class Tournament:
 
     # region Attributs
 
@@ -29,7 +31,7 @@ class Tournament(Categories, Type, Status):
         self.__number_of_players = number_of_players
         self.__elo = elo
         self.__categories = categories
-        self.__status = status.self.WAITING
+        self.__status = Status.WAITING.value
         self.__current_round_number = 0
         self.__type = type
         self.__registration_deadline = registration_deadline
@@ -124,16 +126,32 @@ class Tournament(Categories, Type, Status):
 
     def display(self):
         if self.__status is not Status.COMPLETED:
-            return (f"--TOURNAMENT--"
-                    f"{self._name}\n"
-                    f"--LOCATION--"
-                    f"{self._location}\n"
-                    f"NUMBER OF PLAYERS: {self.__number_of_players}"
-                    f"Minimum 2 players MAX {self.__number_of_players}\n"
-                    f"--CATEGORIE--"
-                    f"{self.__categories}\n"
-                    f"--ELO--"
-                    f"Min 1200 MAX {self.__elo}\n"
-                    f"--STATUS--"
-                    f"{self.__status}")
+            return (f"--TOURNAMENT--\n"
+                    f"\n{self._name}\n"
+                    f"\n--LOCATION--\n"
+                    f"\n{self._location}\n"
+                    f"\nNUMBER OF PLAYERS: {self.__number_of_players}\n"
+                    f"\nMinimum 2 players / MAX {self.__number_of_players} players\n"
+                    f"\n--CATEGORIE--\n"
+                    f"\n{self.__categories}\n"
+                    f"\n--ELO--\n"
+                    f"\nMin 1200 MAX {self.__elo}\n"
+                    f"\n--STATUS--\n"
+                    f"\n{self.__status}")
+
+
+    def is_registration_valid(self, player):
+        registration_date = datetime.strptime(player.registration_date, "%d/%m/%Y")
+
+        deadline = datetime.strptime(self.__registration_deadline, "%d/%m/%Y")
+
+        return registration_date <= deadline
+
+    def check_registration(self, player):
+        if self.is_registration_valid(player):
+            print("Registration is valide !")
+        else:
+            print("Registration is too late...")
+
+
     #endregion

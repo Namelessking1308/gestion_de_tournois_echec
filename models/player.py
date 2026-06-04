@@ -1,19 +1,20 @@
 from enum import Enum
-from models import Tournament
+from datetime import datetime
+
 class Gender(Enum):
     FEMALE = "Female"
     MALE = "Male"
 
 
-class Player:
+class Player():
 
     #region attributs
 
-    def __init__(self, username, email, date_of_birth, gendre : Gender, registration_date, elo = 1200):
+    def __init__(self, username, email, date_of_birth, gender : Gender, registration_date, elo = 1200):
         self.__username = username
         self.__email = email
         self.__date_of_birth = date_of_birth
-        self.__gendre = gendre
+        self.__gender = gender
         self.__registration_date = registration_date
         self.__elo = max(0, min(elo, 3000))
 
@@ -50,8 +51,6 @@ class Player:
 
     @property
     def age(self):
-        from datetime import datetime
-
         try:
             birth_date = datetime.strptime(self.__date_of_birth, "%d/%m/%Y")
         except ValueError:
@@ -68,17 +67,25 @@ class Player:
     
     @property
     def gender(self):
-        return self.__gendre
+        return self.__gender
     
     @gender.setter
     def gender(self, value):
         if not isinstance(value, Gender):
             raise ValueError("The gender must be Male or Female")
-        self.__gendre = value
+        self.__gender = value
 
     @property
     def registration_date(self):
-        pass
+        return self.__registration_date
+
+    @registration_date.setter
+    def registration_date(self, value):
+        try:
+            datetime.strptime(self.__registration_deadline, "%d/%m/%Y")
+        except ValueError:
+            raise ValueError("Invalid registration deadline (DD/MM/YYYY expected)")
+        self.__registration_deadline = value
 
     @property
     def elo(self):
@@ -89,5 +96,17 @@ class Player:
         if value < 1200 or value > 3000:
             raise ValueError("The ELO must be bewteen 1200 and 3000")
         self.__elo = value
+
+    #endregion
+
+    #region Méthodes
+
+    def display(self):
+        return (f"{self.__username}\n"
+                f"{self.__email}\n"
+                f"{self.__date_of_birth}\n"
+                f"{self.__gender}\n"
+                f"{self.__registration_date}\n"
+                f"{self.__elo}")
 
     #endregion
