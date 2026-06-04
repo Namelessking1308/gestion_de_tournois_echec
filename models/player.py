@@ -1,5 +1,5 @@
 from enum import Enum
-
+from models import Tournament
 class Gender(Enum):
     FEMALE = "Female"
     MALE = "Male"
@@ -9,11 +9,12 @@ class Player:
 
     #region attributs
 
-    def __init__(self, username, email, date_of_birth, gendre : Gender, elo = 1200):
+    def __init__(self, username, email, date_of_birth, gendre : Gender, registration_date, elo = 1200):
         self.__username = username
         self.__email = email
         self.__date_of_birth = date_of_birth
         self.__gendre = gendre
+        self.__registration_date = registration_date
         self.__elo = max(0, min(elo, 3000))
 
     #endregion
@@ -74,6 +75,10 @@ class Player:
         if not isinstance(value, Gender):
             raise ValueError("The gender must be Male or Female")
         self.__gendre = value
+
+    @property
+    def registration_date(self):
+        pass
 
     @property
     def elo(self):
