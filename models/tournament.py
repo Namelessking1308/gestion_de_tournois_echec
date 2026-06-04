@@ -1,5 +1,5 @@
 from enum import Enum
-
+from datetime import datetime
     #region Enum
 
 class Categories(Enum):
@@ -105,6 +105,18 @@ class Tournament(Categories, Type, Status):
         if not isinstance(value, Type):
             raise ValueError("The Type must be Female/Male/Mixte")
         self.__type = value
+
+    @property
+    def registration_deadline(self):
+        return self.__registration_deadline
+    
+    @registration_deadline.setter
+    def registration_deadline(self, value):
+        try:
+            datetime.strptime(self.__registration_deadline, "%d/%m/%Y")
+        except ValueError:
+            raise ValueError("Invalid registration deadline (DD/MM/YYYY expected)")
+        self.__registration_deadline = value
 
     #endregion
 
