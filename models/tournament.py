@@ -8,20 +8,25 @@ class Categories(Enum):
 class Type(Enum):
     FEMALE = "Women Only"
     MALE = "Male Only"
-    MIXTe = "MIXTE"
+    MIXTE = "Mixte"
 
-class Tournament(Categories, Type):
+class Status(Enum):
+    WAITING = "Waiting for players..."
+    PROGRESS = "In progress"
+    COMPLETED = "Completed !"
+
+class Tournament(Categories, Type, Status):
 
     # region Attributs
 
-    def __init__(self, name, location, number_of_players, elo, categories : Categories, status, current_round_number, type : Type):
+    def __init__(self, name, location, number_of_players, elo, categories : Categories, status : Status, type : Type):
         self._name = name
         self._location = location
         self.__number_of_players = number_of_players
         self.__elo = elo
         self.__categories = categories
-        self._status = status
-        self.__current_round_number = current_round_number
+        self.__status = status.self.WAITING
+        self.__current_round_number = 0
         self.__type = type
 
     #endregion
@@ -42,8 +47,8 @@ class Tournament(Categories, Type):
     
     @number_of_players.setter
     def number_of_players(self, value):
-        if value <= 0:
-            raise ValueError("The number of players must be positive.")
+        if value < 2 or value > 32:
+            raise ValueError("The number of players must be positive or min 2 max 32")
         self.__number_of_players = value
 
     @property
@@ -52,7 +57,8 @@ class Tournament(Categories, Type):
     
     @elo.setter
     def elo(self, value):
-        value = max(0, min(value = 3000))
+        if value < 1200 or value > 3000:
+            raise ValueError("The ELO must be bewteen 1200 and 3000")
         self.__elo = value
 
     @property
@@ -67,7 +73,13 @@ class Tournament(Categories, Type):
 
     @property
     def status(self):
-        return self._status
+        return self.__status
+    
+    @status.setter
+    def status(self, value):
+        if not isinstance(value, Status):
+            raise ValueError("The Status must be waiting/progress/Completed")
+        self.__status = value
 
     @property
     def current_round_number(self):
@@ -75,8 +87,9 @@ class Tournament(Categories, Type):
     
     @current_round_number.setter
     def current_round_number(self, value):
-        if value <= 1:
-            raise ValueError("The tournament must start from the first round.")
+        if value < 0:
+            raise ValueError("The round number cannot be negative.")
+        self.__current_round_number = value
         
     @property
     def type(self):
@@ -87,4 +100,11 @@ class Tournament(Categories, Type):
         if not isinstance(value, Type):
             raise ValueError("The Type must be Female/Male/Mixte")
         self.__type = value
+
+    #endregion
+
+    #region Méthodes
+
+    
+
     #endregion
