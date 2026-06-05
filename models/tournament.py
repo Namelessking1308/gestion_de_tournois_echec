@@ -191,18 +191,18 @@ class Tournament:
             w = 50
             lines = [
                 "",
-                "╔" + "═" * w + "╗",
-                "║" + f"  ♟  TOURNAMENT : {self._name}".center(w) + "║",
-                "╠" + "═" * w + "╣",
+                "╔" + "═" * w + " ╗",
+                "║" + f"  ♟  TOURNAMENT : {self._name}".center(w) + " ║",
+                "╠" + "═" * w + " ╣",
                 "║" + f"  📍 Location      : {self._location}".ljust(w) + "║",
                 "║" + f"  👥 Max players   : {self.__number_of_players}".ljust(w) + "║",
                 "║" + f"  ⚡ Min ELO       : {self.__elo}".ljust(w) + "║",
-                "║" + f"  🏷  Category     : {self.__categories}".ljust(w) + "║",
+                "║" + f"  🏷  Category      : {self.__categories}".ljust(w) + " ║",
                 "║" + f"  🚻 Type          : {self.__type}".ljust(w) + "║",
                 "║" + f"  📌 Status        : {self.__status}".ljust(w) + "║",
                 "║" + f"  📅 Deadline      : {self.__registration_deadline}".ljust(w) + "║",
                 "║" + f"  🔁 Current round : {self.__current_round_number}".ljust(w) + "║",
-                "╚" + "═" * w + "╝",
+                "╚" + "═" * w + " ╝",
                 ""
             ]
             return "\n".join(lines)
@@ -365,7 +365,7 @@ class Tournament:
         ]
 
         for m in matches:
-            lines.append("║  " + m.display().replace("\n", "\n║  ") + "  ║")
+            lines.append("║  " + m.display().replace("\n", "\n║  ") + "║")
             lines.append("║" + " " * w + "║")
 
         played   = sum(1 for m in matches if m.is_played)

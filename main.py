@@ -1,4 +1,4 @@
-from models import Player, Tournament, Gender, Status, Categories, Type, Match, Match_result, Leaderboard
+from models import Player, Tournament, Gender, Status, Categories, Type, Match_result, Leaderboard
 
 
 def main():
