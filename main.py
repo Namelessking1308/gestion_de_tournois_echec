@@ -1,51 +1,69 @@
-from models import Player, Tournament, Gender, Status, Categories, Type
+from models import Player, Tournament, Gender, Status, Categories, Type, Match, Match_result, Leaderboard
+
 
 def main():
 
-   player1 = Player(
-    "Bob",
-    "bob@gmail.com",
-    "19/08/1965",
-    Gender.FEMALE.value,
-    "01/01/2026",
-    2100
-)
+    # ── Création des joueurs ────────────────────────────────────────────────
+    player1 = Player(
+        "Bob",
+        "bob@gmail.com",
+        "19/08/1965",
+        Gender.MALE.value,
+        "01/01/2026",
+        2100
+    )
 
-   tournament1 = Tournament("Mondial", 
-                            "Spain", 
-                            2, 
-                            1800, 
-                            Categories.SENIOR.value,
-                            Type.MIXTE.value, 
-                            "17/02/2026"
-)
+    player2 = Player(
+        "Alice",
+        "alice@gmail.com",
+        "12/04/1990",
+        Gender.FEMALE.value,
+        "01/01/2026",
+        1900
+    )
 
+    # ── Création du tournoi ─────────────────────────────────────────────────
+    tournament1 = Tournament(
+        "Mondial",
+        "Spain",
+        4,
+        1800,
+        Categories.SENIOR.value,
+        Type.MIXTE.value,
+        "17/02/2026"
+    )
 
-   print(player1.age)
+    # ── Infos basiques ──────────────────────────────────────────────────────
+    print(f"Age of {player1.username} : {player1.age}")
 
-   print(tournament1.add_tournament())
+    print(tournament1.add_tournament())
+    print(tournament1.change_status(Status.WAITING.value))
+    print(tournament1.remove_tournament())
+    print(tournament1.display_tournament())
 
-   print()
+    # ── Inscription des joueurs ─────────────────────────────────────────────
+    print(tournament1.add_player(player1))
+    print(tournament1.add_player(player2))
 
-   print(tournament1.change_status(Status.WAITING.value))
+    tournament1.check_registration(player1)
 
-   print()
+    # ── Démarrage du tournoi ────────────────────────────────────────────────
+    print(tournament1.start_tournament())
 
-   print(tournament1.remove_tournament())
+    # ── Affichage du round courant ──────────────────────────────────────────
+    print(tournament1.display_round())
 
-   print()
+    # ── Saisie du résultat du match 0 (round courant uniquement) ───────────
+    match = tournament1.match_list[0]
+    match.set_result(Match_result.WHITE_PLAYER)
 
-   print(tournament1.display_tournament())
+    print(tournament1.display_round())
 
-   print(player1.display())
+    # ── Passage au round suivant ────────────────────────────────────────────
+    print(tournament1.next_round())
 
-   print()
-
-   print(tournament1.add_player(player1))
-
-   print()
-
-   tournament1.check_registration(player1)
+    # ── Classement final ────────────────────────────────────────────────────
+    print(Leaderboard.display(tournament1))
 
 
 if __name__ == "__main__":

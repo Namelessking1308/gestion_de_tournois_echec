@@ -1,5 +1,6 @@
 from .player import Player, Gender
 from .tournament import Tournament, Categories, Type, Status
+from .match import Match, Match_result, Leaderboard
 
 
 __all__ = [
@@ -8,5 +9,8 @@ __all__ = [
     "Gender",
     "Categories",
     "Type",
-    "Status"
+    "Status",
+    "Match",
+    "Match_result",
+    "Leaderboard",
 ]
