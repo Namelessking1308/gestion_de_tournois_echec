@@ -4,6 +4,7 @@ from datetime import datetime
 class Gender(Enum):
     FEMALE = "Female"
     MALE = "Male"
+    MIXTE = "Mixte"
 
 
 class Player():

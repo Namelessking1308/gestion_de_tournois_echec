@@ -5,8 +5,8 @@ def main():
    player1 = Player(
     "Bob",
     "bob@gmail.com",
-    "19/08/1999",
-    Gender.MALE.value,
+    "19/08/1965",
+    Gender.FEMALE.value,
     "01/01/2026",
     2100
 )
@@ -15,10 +15,27 @@ def main():
                             "Spain", 
                             2, 
                             1800, 
-                            Categories.JUNIOR.value,
+                            Categories.SENIOR.value,
                             Type.MIXTE.value, 
                             "17/02/2026"
 )
+
+
+   print(player1.age)
+
+   print(tournament1.add_tournament())
+
+   print()
+
+   print(tournament1.change_status(Status.WAITING.value))
+
+   print()
+
+   print(tournament1.remove_tournament())
+
+   print()
+
+   print(tournament1.display_tournament())
 
    print(player1.display())
 
@@ -29,19 +46,6 @@ def main():
    print()
 
    tournament1.check_registration(player1)
-
-   print()
-
-   print(tournament1.add_tournament())
-
-   print()
-
-   print(tournament1.remove_tournament())
-
-   print()
-
-   print(tournament1.display_tournament())
-
 
 
 if __name__ == "__main__":

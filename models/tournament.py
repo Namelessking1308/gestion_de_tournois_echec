@@ -174,17 +174,28 @@ class Tournament:
         else:
             print("Registration is too late...")
 
-
-# Suite de l'Exo ICI
     def add_player(self, player):
         if not hasattr(self, 'tournament_list'):
             self.__tournament_list = []
 
-        if (len(self.tournament_list) >= self.number_of_players) and (Status.PROGRESS or Status.COMPLETED):
+        if len(self.tournament_list) >= self.number_of_players:
             return f"Maximum capacity reached ({self.number_of_players})"
         elif player in self.__tournament_list:
             return f"{player.username} is already in the tournament"
-        elif 
+        elif self.__status == Status.PROGRESS.value:
+            return f"You can't join the tournament because the status is {Status.PROGRESS.value}"
+        elif self.__status == Status.COMPLETED.value:
+            return f"You can't join the tournament because the status is {Status.COMPLETED.value}"
+        elif player.age < 18:
+            return f"You don't have the age to join this tournament"
+        elif player.age < 18 and player.age > 60:
+            return f"You don't have the age to join this tournament"
+        elif player.age > 60:
+            return f"You don't have the age to join this tournament"
+        elif player.elo < self.elo:
+            return f"You don't have the elo to join this tournament"
+        elif player.gender != self.__type:
+            return f"This tournament is {self.__type} only."
 
         self.tournament_list.append(player)
 
@@ -198,5 +209,8 @@ class Tournament:
 
         return f"The tournament {self.name} has been added to the list of tournament !"
 
+    def change_status(self, status):
+        self.__status = status
+        return status
 
     #endregion
